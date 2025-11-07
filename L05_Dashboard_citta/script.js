@@ -12,11 +12,18 @@ const ENDPOINT = "/users";
     //})
     //.catch(error => console.error(error));
 
+    async function fetchJeson(url){
+      const response = await fetch(url);
+      const obj = await response.json();
+      return obj;
+    }
+ 
+
+
 async function getDashboardData(query){
    console.log(`Caricamento della Dashboard per la query "${query}"`);
-   const response = await fetch (`http://localhost:3333/destinations?search=${query}`);
-   const destinations = await response.json();
-   console.log(destinations);
-}
+   const destinationsPromise = fetch (`http://localhost:3333/destinations?search=${query}`);
+   console.log(destinationsPromise);
+}   
 
 getDashboardData('london')
