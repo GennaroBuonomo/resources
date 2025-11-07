@@ -21,9 +21,15 @@ const ENDPOINT = "/users";
 
 
 async function getDashboardData(query){
+
    console.log(`Caricamento della Dashboard per la query "${query}"`);
+
    const destinationsPromise = fetch (`http://localhost:3333/destinations?search=${query}`);
-   console.log(destinationsPromise);
+   const weatherPromise = fetch (`http://localhost:3333/weathers?search=${query}`);
+   const airportsPromise = fetch (`http://localhost:3333/airports?search=${query}`);
+
+   const promises = [destinationsPromise, weatherPromise, airportsPromise];
+   const [destinations, weathers, airports] = await Promise.all(promises);
 }   
 
 getDashboardData('london')
