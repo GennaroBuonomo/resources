@@ -2,26 +2,21 @@ import { useState, useEffect, useMemo, memo } from 'react';
 import './App.css';
 
 
-const PoliticianCard = memo(({ politician }) => {
-
-  console.log(`Render di: ${politician.name}`);
-
+function PoliticianCard ({name, image, position, biography}){
+  console.log("Card");
   return (
     <div className="card">
-      <img src={politician.image} alt={politician.name} />
+      <img src={image} alt={name} />
       <div className="card-content">
-        <h2>{politician.name}</h2>
-        <span className="position-tag">{politician.position}</span>
-        <p className="biography">{politician.biography}</p>
+        <h2>{name}</h2>
+        <span className="position-tag">{position}</span>
+        <p className="biography">{biography}</p>
       </div>
     </div>
   );
-});
+}
 
-
-PoliticianCard.displayName = 'PoliticianCard';
-
-
+const MemoizedPoliticianCard = memo(PoliticianCard);
 
 function App() {
   const [politicians, setPoliticians] = useState([]);
@@ -36,16 +31,12 @@ function App() {
   }, []);
 
  
-  const filteredPoliticians = useMemo(() => {
-    console.log("--- Eseguo il filtro dei dati ---");
-    return politicians.filter((p) => {
-      const searchLower = searchTerm.toLowerCase();
-      return (
-        p.name.toLowerCase().includes(searchLower) || 
-        p.biography.toLowerCase().includes(searchLower)
-      );
-    });
-  }, [politicians, searchTerm]);
+const filteredPoliticians = useMemo(() => {
+  return politicians.filter((p) => 
+    p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    p.biography.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+}, [politicians, searchTerm]);
 
   return (
     <div className="container">
@@ -58,18 +49,12 @@ function App() {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <p className="results-count">
-          Risultati trovati: <strong>{filteredPoliticians.length}</strong>
-        </p>
       </div>
       <div className="politicians-list">
-        {filteredPoliticians.map((politician) => (
-          <PoliticianCard key={politician.id} politician={politician} />
+        {filteredPoliticians.map(politician => (
+          <MemoizedPoliticianCard key={politician.id} {...politician} />
         ))}
       </div>
-      {filteredPoliticians.length === 0 && (
-        <p className="no-results">Nessun politico trovato per la tua ricerca.</p>
-      )}
     </div>
   );
 }
