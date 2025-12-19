@@ -26,7 +26,7 @@ function App() {
     <div>
       <h1>Lista dei Politici</h1>
       
-      {/* AGGIUNGI QUESTO: Il campo di ricerca */}
+     
       <div className="search-container">
         <input 
           type="text" 
@@ -37,7 +37,6 @@ function App() {
       </div>
 
       <div className="politicians-list">
-        {/* MODIFICA QUESTO: usa filteredPoliticians invece di politicians */}
         {filteredPoliticians.map(politician => (
           <div className="card" key={politician.id}>
             <img src={politician.image} alt={politician.name} />
