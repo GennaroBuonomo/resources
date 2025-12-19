@@ -58,3 +58,64 @@
   line-height: 1.6;
   margin-top: 10px;
 }
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 20px;
+}
+
+.search-container {
+  margin: 30px auto;
+  max-width: 500px; 
+  padding: 0 20px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 15px 25px;
+  font-size: 1rem;
+  border: 2px solid #eee;
+  border-radius: 50px;
+  outline: none;
+  background-color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.15);
+  transform: scale(1.02); 
+}
+
+.results-count {
+  margin-top: 15px;
+  color: #666;
+  font-size: 0.95rem;
+  font-family: sans-serif;
+}
+
+.results-count strong {
+  color: #007bff; 
+  background: #e7f0ff;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+.no-results {
+  margin-top: 50px;
+  font-size: 1.2rem;
+  color: #999;
+  font-style: italic;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
+  background-color: #f0f2f5;
+  background-size: auto; 
+  min-height: 100vh;
+}
