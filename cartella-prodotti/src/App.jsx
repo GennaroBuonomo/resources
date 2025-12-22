@@ -1,35 +1,69 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useEffect, useCallback } from 'react';
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+const debounce = (callback, delay) => {
+  let timeout;
+  return (value) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      callback(value)
+    }, delay)
+  };
+};
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+
+
+function App() {
+
+  const [suggerimenti, setSuggerimenti] = useState([])
+  const [query, setQuery] = useState ("")
+
+  const fetchProducts = async (query) => {
+    if(!query.trim()){
+      setSuggerimenti([]);
+      return;
+    }
+     
+    try{
+      const res = await fetch(`http://localhost:3333/products?search=${query}`);
+      const data = await res.json();
+      setSuggerimenti(data);
+      console.log('API')
+    }catch(error){
+      console.error(error);
+    }
+
+  }
+
+  const debouncedFetchProducts = useCallback(
+    debounce(fetchProducts, 500)
+  , []);
+  
+
+  useEffect(() => {
+  debouncedFetchProducts(query)
+  }, [query]);
+
+return (
+  <div className="search-wrapper"> 
+    <h1>Lista Prodotti</h1>
+    
+    <input 
+      type="text"
+      placeholder="Cerca il prodotto..." 
+      value={query}
+      onChange={e => setQuery(e.target.value)}
+    />
+
+    {suggerimenti.length > 0 && (
+      <div className="dropdown">
+        {suggerimenti.map((product) => (
+          <p key={product.id}>{product.name}</p>
+        ))}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    )}
+  </div>
+);
 }
 
 export default App
