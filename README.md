@@ -20,9 +20,11 @@ Questo progetto fornisce un server mock per simulare API RESTful utilizzando dat
 ## Utilizzo
 
 Per avviare il server:
+
 ```
 npm start
 ```
+
 Il server sarà disponibile sulla porta specificata nella variabile d'ambiente `PORT` (default: 5000).
 
 ## API
@@ -33,14 +35,19 @@ Il server sarà disponibile sulla porta specificata nella variabile d'ambiente `
 ## Esempio
 
 Per ottenere tutti i libri:
+
 ```
 GET http://localhost:5000/books
 ```
+
 Per cercare un libro per titolo:
+
 ```
 GET http://localhost:5000/books?search=harry
 ```
+
 Per ottenere un attore tramite ID:
+
 ```
 GET http://localhost:5000/actors/1
 ```

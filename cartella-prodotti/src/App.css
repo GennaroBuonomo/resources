@@ -1,0 +1,34 @@
+
+.search-wrapper {
+  position: relative;
+  width: 300px;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+
+.dropdown {
+  position: absolute; 
+  background: white;
+  border: 1px solid #ccc;
+  width: 100%;
+  z-index: 10;       
+  margin-top: 2px;  
+}
+
+
+.dropdown p {
+  margin: 0;
+  padding: 8px;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+}
+
+.dropdown p:hover {
+  background-color: #f0f0f0;
+}
